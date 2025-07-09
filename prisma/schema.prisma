@@ -63,14 +63,22 @@ enum Role {
 }
 
 model MoodArt {
-  id           String        @id @default(uuid())
-  moodColor    EmotionColor
+  id String @id @default(uuid())
+  moodColor EmotionColor
   moodTriggers MoodTrigger[]
-  title        String?
-  note         String?
-  day          DateTime      @db.Date // stored as just date (no time)
-  User         User?         @relation(fields: [userId], references: [id])
-  userId       String?
+  title String?
+  note String?
+  day DateTime @db.Date
+
+  // --- NEW CBT-inspired Reflection Fields ---
+  challengingThought String? // What was the negative thought?
+  alternativeThought String? // What's a more balanced thought?
+  copingStrategyUsed String? // What action was taken?
+  lessonLearned String?     // What was learned?
+  // ------------------------------------------
+
+  User User? @relation(fields: [userId], references: [id])
+  userId String?
 }
 
 model MoodTrigger {
