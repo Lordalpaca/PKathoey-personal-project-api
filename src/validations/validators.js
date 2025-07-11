@@ -61,9 +61,7 @@ export const createMoodDiarySchema = Yup.object().shape({
         ],
         "Invalid trigger type"
       )
-    )
-    .min(1, "At least one trigger is required")
-    .required("Mood triggers are required"),
+    ),
   title: Yup.string().max(255, "Title cannot exceed 255 characters").nullable(),
   note: Yup.string().nullable(),
   day: Yup.date()
@@ -88,9 +86,7 @@ export const updateMoodDiarySchema = Yup.object().shape({
         ["FAMILY", "NEWS", "HEALTH", "WORK", "FRIENDS", "PARTICIPATION", "SELF", "RELATIONSHIPS", "ACTIVITIES", "INDEPENDENCE"],
         "Invalid trigger type"
       )
-    )
-    .min(1, "At least one trigger is required")
-    .optional(),
+    ),
   title: Yup.string().max(255, "Title cannot exceed 255 characters").nullable(),
   note: Yup.string().nullable(),
   day: Yup.date()
