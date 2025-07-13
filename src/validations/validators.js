@@ -40,34 +40,34 @@ export const createMoodDiarySchema = Yup.object().shape({
         "SAD",
         "STRESSED",
         "TIRED",
+        "HAPPY",
       ],
       "Invalid mood color"
     )
     .required("Mood color is required"),
-  moodTriggers: Yup.array()
-    .of(
-      Yup.string().oneOf(
-        [
-          "FAMILY",
-          "NEWS",
-          "HEALTH",
-          "WORK",
-          "FRIENDS",
-          "PARTICIPATION",
-          "SELF",
-          "RELATIONSHIPS",
-          "ACTIVITIES",
-          "INDEPENDENCE",
-        ],
-        "Invalid trigger type"
-      )
-    ),
+  moodTriggers: Yup.array().of(
+    Yup.string().oneOf(
+      [
+        "FAMILY",
+        "NEWS",
+        "HEALTH",
+        "WORK",
+        "FRIENDS",
+        "PARTICIPATION",
+        "SELF",
+        "RELATIONSHIPS",
+        "ACTIVITIES",
+        "INDEPENDENCE",
+      ],
+      "Invalid trigger type"
+    )
+  ),
   title: Yup.string().max(255, "Title cannot exceed 255 characters").nullable(),
   note: Yup.string().nullable(),
   day: Yup.date()
     .required("Day is required")
-    .max(new DataTransfer(), "Mood diary entry cannot be for a future date"),
-  challengingThought: Yup.string().nullble(),
+    .max(new Date(), "Mood diary entry cannot be for a future date"),
+  challengingThought: Yup.string().nullable(),
   alternativeThought: Yup.string().nullable(),
   copingstrategyUsed: Yup.string().nullable(),
   lessonLearned: Yup.string().nullable(),
@@ -76,17 +76,40 @@ export const createMoodDiarySchema = Yup.object().shape({
 export const updateMoodDiarySchema = Yup.object().shape({
   moodColor: Yup.string()
     .oneOf(
-      ["ANGRY", "ANXIOUS", "CALM", "EXCITED", "GRATEFUL", "HOPEFUL", "LOVED", "RELAXED", "SAD", "STRESSED", "TIRED"],
+      [
+        "ANGRY",
+        "ANXIOUS",
+        "CALM",
+        "EXCITED",
+        "GRATEFUL",
+        "HOPEFUL",
+        "LOVED",
+        "RELAXED",
+        "SAD",
+        "STRESSED",
+        "TIRED",
+        "HAPPY",
+      ],
       "Invalid mood color"
     )
     .optional(),
-  moodTriggers: Yup.array()
-    .of(
-      Yup.string().oneOf(
-        ["FAMILY", "NEWS", "HEALTH", "WORK", "FRIENDS", "PARTICIPATION", "SELF", "RELATIONSHIPS", "ACTIVITIES", "INDEPENDENCE"],
-        "Invalid trigger type"
-      )
-    ),
+  moodTriggers: Yup.array().of(
+    Yup.string().oneOf(
+      [
+        "FAMILY",
+        "NEWS",
+        "HEALTH",
+        "WORK",
+        "FRIENDS",
+        "PARTICIPATION",
+        "SELF",
+        "RELATIONSHIPS",
+        "ACTIVITIES",
+        "INDEPENDENCE",
+      ],
+      "Invalid trigger type"
+    )
+  ),
   title: Yup.string().max(255, "Title cannot exceed 255 characters").nullable(),
   note: Yup.string().nullable(),
   day: Yup.date()
@@ -98,7 +121,6 @@ export const updateMoodDiarySchema = Yup.object().shape({
   copingStrategyUsed: Yup.string().nullable().optional(),
   lessonLearned: Yup.string().nullable().optional(),
 });
-
 
 // --- Validate Middleware ---
 export const validate = (schema) => async (req, res, next) => {
